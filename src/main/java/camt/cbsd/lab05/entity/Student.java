@@ -66,4 +66,8 @@ public class Student {
         this.penAmount = penAmount;
         this.description = description;
     }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 }

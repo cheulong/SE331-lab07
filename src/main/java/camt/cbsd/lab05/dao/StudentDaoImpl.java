@@ -51,5 +51,13 @@ public class StudentDaoImpl implements StudentDao {
                 "The man for the Kop");
         students.add(student);
     }
+    @Override
+    public Student addStudent(Student student){
+        student.setImage(this.imageBaseUrl+student.getImage());
+        if (students.add(student))
+            return student;
+        else
+            return null;
+    }
 
 }

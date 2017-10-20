@@ -1,7 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {Http, RequestOptions,Headers,Response} from '@angular/http';
+
 import {Student} from '../students/student';
 import 'rxjs/add/operator/map';
+import {Observable} from "rxjs/Observable";
+import "rxjs/add/operator/mergeMap";
+
 @Injectable()
 export class StudentsDataService {
   constructor(private http: Http){}
@@ -16,8 +20,9 @@ export class StudentsDataService {
   getStudent(id:number){
    return null;
   }
-
-  addStudent(student:Student){
-
+  addStudent(student:Student, imageFile:any): Observable<Student>{
+    return null;
   }
+
+
 }

@@ -52,7 +52,7 @@ public class StudentController {
     }
     @PostMapping("/student")
     public ResponseEntity<?> uploadOnlyStudent(@RequestBody Student student){
-        System.out.println(student);
+       studentService.addStudent(student);
         return ResponseEntity.ok(student);
     }
 
