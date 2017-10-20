@@ -67,15 +67,14 @@ public class StudentController {
             produces = {MediaType.IMAGE_PNG_VALUE,MediaType.IMAGE_JPEG_VALUE,MediaType.IMAGE_GIF_VALUE}
     )
     public @ResponseBody
-    ResponseEntity<?> getStudentImage(@PathVariable("fileName")String fileName) throws IOException{
-        File file = Paths.get(imageServerDir+fileName).toFile();
-        InputStream in=new FileInputStream(file);
-        if(file.exists()){
+    ResponseEntity<?> getStudentImage(@PathVariable("fileName") String fileName) throws IOException {
+        try {
+            File file = Paths.get(imageServerDir + fileName).toFile();
+            InputStream in = new FileInputStream(file);
             return ResponseEntity.ok(IOUtils.toByteArray(in));
-        }else {
+        } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-
     }
 
 }
