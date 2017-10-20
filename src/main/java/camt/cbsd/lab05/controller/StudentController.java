@@ -12,11 +12,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.websocket.server.PathParam;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -76,5 +80,22 @@ public class StudentController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+    @PostMapping("/upload")
+    public  ResponseEntity<?> uploadImage(@RequestParam("file")MultipartFile file){
+        if (file.isEmpty()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        try{
+            byte[] bytes=file.getBytes();
+            Path path= Paths.get(imageServerDir+file.getOriginalFilename());
+            Files.write(path,bytes);
+            return ResponseEntity.ok(file.getOriginalFilename());
+        } catch (IOException e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    };
+
 
 }
