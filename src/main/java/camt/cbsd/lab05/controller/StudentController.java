@@ -70,7 +70,12 @@ public class StudentController {
     ResponseEntity<?> getStudentImage(@PathVariable("fileName")String fileName) throws IOException{
         File file = Paths.get(imageServerDir+fileName).toFile();
         InputStream in=new FileInputStream(file);
-        return ResponseEntity.ok(IOUtils.toByteArray(in));
+        if(file.exists()){
+            return ResponseEntity.ok(IOUtils.toByteArray(in));
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
     }
 
 }
